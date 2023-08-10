@@ -30,7 +30,7 @@
 			},
 			{
 				"name": "Gender",
-				"type": "bit"
+				"type": "varchar"
 			},
 			{
 				"name": "Ethnicity",
