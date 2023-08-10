@@ -12,7 +12,15 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
@@ -33,7 +41,47 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: true,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 sink(allowSchemaDrift: true,",
+				"     validateSchema: true,",
+				"     input(",
+				"          EEID as string,",
+				"          FullName as string,",
+				"          JobTitle as string,",
+				"          Department as string,",
+				"          {Business Unit} as string,",
+				"          Gender as string,",
+				"          Ethnicity as string,",
+				"          Age as integer,",
+				"          {Hire Date} as date,",
+				"          {Annual Salary} as decimal(19,4),",
+				"          {Bonus %} as string,",
+				"          Country as string,",
+				"          City as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          EEID,",
+				"          FullName = {Full Name},",
+				"          JobTitle = {Job Title},",
+				"          Department,",
+				"          {Business Unit},",
+				"          Gender,",
+				"          Ethnicity,",
+				"          Age,",
+				"          {Hire Date},",
+				"          {Annual Salary},",
+				"          {Bonus %},",
+				"          Country,",
+				"          City",
+				"     )) ~> sink1"
 			]
 		}
 	}
