@@ -9,59 +9,67 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "EEID",
-				"type": "varchar"
-			},
-			{
-				"name": "FullName",
-				"type": "nvarchar"
-			},
-			{
-				"name": "JobTitle",
-				"type": "varchar"
-			},
-			{
-				"name": "Department",
-				"type": "varchar"
-			},
-			{
-				"name": "Business Unit",
-				"type": "varchar"
-			},
-			{
-				"name": "Gender",
-				"type": "varchar"
-			},
-			{
-				"name": "Ethnicity",
-				"type": "varchar"
-			},
-			{
-				"name": "Age",
+				"name": "CustomerID",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "Hire Date",
-				"type": "date"
+				"name": "NameStyle",
+				"type": "bit"
 			},
 			{
-				"name": "Annual Salary",
-				"type": "money",
-				"precision": 19,
-				"scale": 4
+				"name": "Title",
+				"type": "nvarchar"
 			},
 			{
-				"name": "Bonus %",
+				"name": "FirstName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MiddleName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LastName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Suffix",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CompanyName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SalesPerson",
+				"type": "nvarchar"
+			},
+			{
+				"name": "EmailAddress",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Phone",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PasswordHash",
 				"type": "varchar"
 			},
 			{
-				"name": "Country",
+				"name": "PasswordSalt",
 				"type": "varchar"
 			},
 			{
-				"name": "City",
-				"type": "varchar"
+				"name": "rowguid",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
 			}
 		],
 		"typeProperties": {
