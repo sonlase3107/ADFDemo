@@ -1,0 +1,79 @@
+{
+	"name": "OrderCustomerLoading",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "OrdersSrc"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "CustomerSrc"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "OrderJoinCustomer"
+				},
+				{
+					"name": "aggregate1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          EEID as string,",
+				"          FullName as string,",
+				"          JobTitle as string,",
+				"          Department as string,",
+				"          {Business Unit} as string,",
+				"          Gender as string,",
+				"          Ethnicity as string,",
+				"          Age as integer,",
+				"          {Hire Date} as date,",
+				"          {Annual Salary} as decimal(19,4),",
+				"          {Bonus %} as string,",
+				"          Country as string,",
+				"          City as string",
+				"     ),",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: true,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> OrdersSrc",
+				"source(output(",
+				"          EEID as string,",
+				"          FullName as string,",
+				"          JobTitle as string,",
+				"          Department as string,",
+				"          {Business Unit} as string,",
+				"          Gender as string,",
+				"          Ethnicity as string,",
+				"          Age as integer,",
+				"          {Hire Date} as date,",
+				"          {Annual Salary} as decimal(19,4),",
+				"          {Bonus %} as string,",
+				"          Country as string,",
+				"          City as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> CustomerSrc",
+				"OrdersSrc, CustomerSrc join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> OrderJoinCustomer",
+				"OrderJoinCustomer aggregate() ~> aggregate1"
+			]
+		}
+	}
+}
