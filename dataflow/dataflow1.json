@@ -15,13 +15,20 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "AzureSqlTable2",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "cast1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          EEID as string,",
@@ -32,7 +39,7 @@
 				"          Gender as string,",
 				"          Ethnicity as string,",
 				"          Age as string,",
-				"          {Hire Date} as date,",
+				"          {Hire Date} as string,",
 				"          {Annual Salary} as string,",
 				"          {Bonus %} as string,",
 				"          Country as string,",
@@ -42,7 +49,14 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: true,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"source1 derive({Annual Salary} = replace({Annual Salary},'$',''),",
+				"          {Bonus %} = replace({Bonus %},'%','')) ~> derivedColumn1",
+				"derivedColumn1 cast(output(",
+				"          EEID as string,",
+				"          Age as integer",
+				"     ),",
+				"     errors: true) ~> cast1",
+				"cast1 sink(allowSchemaDrift: true,",
 				"     validateSchema: true,",
 				"     input(",
 				"          EEID as string,",
@@ -55,7 +69,7 @@
 				"          Age as integer,",
 				"          {Hire Date} as date,",
 				"          {Annual Salary} as decimal(19,4),",
-				"          {Bonus %} as string,",
+				"          {Bonus %} as integer,",
 				"          Country as string,",
 				"          City as string",
 				"     ),",
