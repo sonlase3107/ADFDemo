@@ -93,7 +93,8 @@
 				"          {Annual Salary},",
 				"          Country,",
 				"          City,",
-				"          {Hire Date}",
+				"          {Hire Date},",
+				"          Age",
 				"     )) ~> sink1"
 			]
 		}
