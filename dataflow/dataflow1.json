@@ -83,6 +83,9 @@
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
 				"          EEID,",
+				"          JobTitle = {Job Title},",
+				"          FullName = {Full Name},",
+				"          {Bonus %},",
 				"          Department,",
 				"          {Business Unit},",
 				"          Gender,",
@@ -90,8 +93,6 @@
 				"          {Annual Salary},",
 				"          Country,",
 				"          City,",
-				"          FullName = {Full Name},",
-				"          JobTitle = {Job Title},",
 				"          {Hire Date}",
 				"     )) ~> sink1"
 			]
